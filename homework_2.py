@@ -1,15 +1,8 @@
-#!/usr/bin/env python
-# coding: utf-8
+# %%
+# %load_ext autoreload
+# %autoreload 2
 
-# In[1]:
-
-
-get_ipython().run_line_magic('load_ext', 'autoreload')
-get_ipython().run_line_magic('autoreload', '2')
-
-
-# In[2]:
-
+# %%
 
 import numpy as np
 import pandas as pd
@@ -21,16 +14,18 @@ from iml.visualization import DungeonVisualization
 from iml.dungeon_maker import make_treasure_room, make_underground_maze, make_underground_maze_with_meat
 
 
+# %% [markdown]
 # **Group members:** [your names]
 
+# %% [markdown]
 # ## Part 1: Gridworld Environment
 
-# ### 1.1 A drunken knight in a treasure room (4 pts)
-# > (a) Implement a stochastic policy where you select actions uniformly at random. (0.5 pts)
+# %% [markdown]
+# ### 1.1 A drunken knight in a treasure room
+# ### (a)
+# > Implement a stochastic policy where you select actions uniformly at random.
 
-# In[3]:
-
-
+# %%
 def my_reward_11(state, action, next_state, dungeon):
     if next_state == dungeon.end:
         return 1.0
@@ -57,27 +52,35 @@ states, actions, rewards = drunken_knight.run_episode(treasure_room, nstep=10, g
 # Show the map, Q-values, and path.
 vis_11.show(states, actions, drunken_knight.q_values)
 
-
-# > (b) Observe how you move and draw a Markov decision process (MDP) diagram for all four non-wall states. (0.5 pts)
-# 
+# %% [markdown]
+# ### (b)
+# > Observe how you move and draw a Markov decision process (MDP) diagram for all four non-wall states.
+#
 # *(Insert your MDP diagram photo/figure here)*
 
-# > (c) Compute the theoretical probability distribution over a 2-step horizon analytically (without writing code) when you use the stochastic policy you implemented. (1 pt)
-# 
+# %% [markdown]
+# ### (c)
+# > Compute the theoretical probability distribution over a 2-step horizon analytically (without writing code) when you use the stochastic policy you implemented.
+#
 
-# > (d) If you implement Q-learning with an episode length of 1 (`nstep = 1`) under current setup, will you manage to perform better? Why or why not? Explain your reasoning. (1 pt)
-# 
+# %% [markdown]
+# ### (d)
+# > If you implement Q-learning with an episode length of 1 (`nstep = 1`) under current setup, will you manage to perform better? Why or why not? Explain your reasoning.
+#
 
-# > (e) For a dungeon of width $N$ and height $M$, what is the minimum number of steps required to reach the goal from the starting position? Why? (1 pt)
-# 
+# %% [markdown]
+# ### (e)
+# > For a dungeon of width $N$ and height $M$, what is the minimum number of steps required to reach the goal from the starting position? Why? 
+#
 
+# %% [markdown]
 # ---
-# ### 1.2 A tricky knight in an underground maze (6 pts)
-# > (a) Using your stochastic policy $\pi$, implement the Q-learning update with a discount factor ($\gamma = 1$) and a maximum episode length of 30 steps ($n_{\text{step}} = 30$). Run consecutive episodes without resetting the Q-table. Explain your observations on how the Q-values change relative to the goal and starting locations. (1 pt)
+# ### 1.2 A tricky knight in an underground maze
+#
+# ### (a)
+# > (a) Using your stochastic policy $\pi$, implement the Q-learning update with a discount factor ($\gamma = 1$) and a maximum episode length of 30 steps ($n_{\text{step}} = 30$). Run consecutive episodes without resetting the Q-table. Explain your observations on how the Q-values change relative to the goal and starting locations.
 
-# In[10]:
-
-
+# %%
 def my_reward_12(state, action, next_state, dungeon):
     if next_state == dungeon.end:
         return 1.0
@@ -108,18 +111,24 @@ training_reward = []
 vis_12.plot_training_reward(training_reward)
 
 
-# > (b) By varying the discount factor $\gamma$, do you observe any differences? Summarize how the discount rate affects the results and explain why it is necessary. (1 pt)
-# 
+# %% [markdown]
+# ### (b)
+# > By varying the discount factor $\gamma$, do you observe any differences? Summarize how the discount rate affects the results and explain why it is necessary.
+#
 
-# > (c) Implement an $\epsilon$-greedy policy for your agent by varying $\epsilon$. Plot the sum of discounted rewards per episode over 100 training runs and explain your observations. (1 pt)
+# %% [markdown]
+# ### (c)
+# > Implement an $\epsilon$-greedy policy for your agent by varying $\epsilon$. Plot the sum of discounted rewards per episode over 100 training runs and explain your observations.
 
-# > (d) Will you reach the goal every time? Explain why or why not. What should we do when this happens? (0.5 pts)
+# %% [markdown]
+# ### (d)
+# > Will you reach the goal every time? Explain why or why not. What should we do when this happens?
 
-# > (e) Recreate the maze using `make_underground_maze_with_meat()`, update the reward function, set $\epsilon = 0.9$, $n_{\text{step}} = 50$, and $\gamma = 0.95$, and run the agent for 100 to 200 training runs. Explain your observations regarding your strategy (Q-values) and behavior. (1 pt)
+# %% [markdown]
+# ### (e)
+# > Recreate the maze using `make_underground_maze_with_meat()`, update the reward function, set $\epsilon = 0.9$, $n_{\text{step}} = 50$, and $\gamma = 0.95$, and run the agent for 100 to 200 training runs. Explain your observations regarding your strategy (Q-values) and behavior.
 
-# In[39]:
-
-
+# %%
 def my_reward_12(state, action, next_state, dungeon):
     if next_state == dungeon.end:
         return 1.0
@@ -152,31 +161,52 @@ training_reward = []
 # plot "training_reward"
 vis_12.plot_training_reward(training_reward)
 
-
+# %% [markdown]
 # > (f) Compare the state values $V(s)$ when you go directly to the treasure (e), collects free meat as you observed (+), or do both. Explain your results mathematically. (1.5 pts)
-# 
+#
 
+# %% [markdown]
 # > (g) How might you modify the reward function or environment design to prevent this *reward hacking*? Propose and explain a solution. (Extra, +0.5 pts)
 
-# ## Part 2: Tic-Tac-Toe
 
+# %% [markdown]
+# ## Part 2: Bayesian Decision-Making in Multi-Armed Bandits
+
+# %% [markdown]
+# ### 2.1 Bayesian Estimation of Arm Rewards
+
+# %% [markdown]
 # ### (a)
-# > Using the language of state value functions, explain how you would normally
-# > solve tic-tac-toe. What is the meaning of the value of a position? What
-# > would you say is the value of the starting state?
+# > Starting from Bayes' theorem and the Bernoulli likelihood, derive the posterior distribution $p(\theta \mid D)$ and identify its updated parameters. Hence, show that the Beta distribution is a conjugate prior to the Bernoulli likelihood. 
 
+# %% [markdown]
 # ### (b)
-# > Implement an agent that learns tic-tac-toe through Q-learning. By whatever
-# > means necessary, ensure that the trained agent wins at least $99\%$ of the
-# > time in a trial of $100,000$ fair games against the random opponent.
+# > Suppose the prior is $(\beta(2,2))$. After ten pulls, the arm produces seven successes and three failures. Compute the posterior distribution and posterior mean. Show that, in general, the posterior mean can be expressed as a weighted average of the prior mean and the empirical success rate. Interpret the weights and explain how they change as the number of observations increases
 
-# ### (c)
-# > When playing against the random opponent, are some choices of starting moves
-# > better than others?
+# %% [markdown]
+# ### 2.2 Learning with Thompson Samplin
 
-# ## Bonus: Multi-Armed Bandits
-
+# %% [markdown]
 # ### (a)
-# > Implement Thompson sampling for this problem. Over $100$ independent trials
-# > with $5000$ iterations each, report the empirical fractions of times that
-# > the agent chose the special arm.
+# > Implement a five-armed Bernoulli bandit environment that generates binary rewards using the given success probabilities. Then implement a Thompson sampling agent that maintains the posterior parameters for each arm, selects actions using posterior sampling, and updates the corresponding posterior after receiving each reward. 
+
+# %% [markdown]
+# ### (b)
+# > Using the results from part (a), plot the evolution of the posterior mean estimates for all five arms as a function of time; visualize the posterior distributions; discuss how the posterior means and distributions evolve; and explain why some arms become more certain about their estimated success probabilities than others.
+
+# %% [markdown]
+# ### 2.3 Experimental Evaluation and Exploration
+
+# %% [markdown]
+# ### (a)
+# > Perform 100 independent trials of Thompson sampling, each consisting of 2,000 decisions. Initialize a new agent with the same priors at the beginning of every trial.
+
+# %% [markdown]
+# ### (b)
+# > Derive the agent's expected reward per decision and its expected instantaneous pseudo-regret. Hence, derive the expected cumulative pseudo-regret $\mathbb{E}[\mathcal{R}_T]$. How does it grow with $T$, assuming $\epsilon$ remains fixed and the greedy choice remains optimal?
+
+# %% [markdown]
+# ### (c)
+# > Compare $\epsilon$-greedy exploration with Thompson sampling. Explain why Thompson sampling may select an arm with a lower posterior mean and how its exploration behavior changes as more observations accumulate.
+
+# %%
