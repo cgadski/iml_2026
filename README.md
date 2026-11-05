@@ -1,6 +1,6 @@
-# IML 2025 Assignments
+# IML 2026 Assignments
 
-This repository has the homework assignments for _Introduction to Machine Learning_ from the winter semester of 2025.
+This repository has the homework assignments for _Introduction to Machine Learning_ from the winter semester of 2026.
 
 ## Quickstart
 
