@@ -23,4 +23,5 @@ dependencies = [
     # huggingface datasets: online repository of datasets for deep learning
     "datasets>=4.4.1",
     "jupyter>=1.1.1",
+    "scipy>=1.16.3",
 ]
