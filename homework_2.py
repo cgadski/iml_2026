@@ -162,11 +162,11 @@ training_reward = []
 vis_12.plot_training_reward(training_reward)
 
 # %% [markdown]
-# > (f) Compare the state values $V(s)$ when you go directly to the treasure (e), collects free meat as you observed (+), or do both. Explain your results mathematically. (1.5 pts)
+# > (f) Compare the state values $V(s)$ when you go directly to the treasure (e), collects free meat as you observed (+), or do both. Explain your results mathematically.
 #
 
 # %% [markdown]
-# > (g) How might you modify the reward function or environment design to prevent this *reward hacking*? Propose and explain a solution. (Extra, +0.5 pts)
+# > (g) How might you modify the reward function or environment design to prevent this *reward hacking*? Propose and explain a solution. (Bonus)
 
 
 # %% [markdown]
@@ -203,7 +203,7 @@ vis_12.plot_training_reward(training_reward)
 
 # %% [markdown]
 # ### (b)
-# > Derive the agent's expected reward per decision and its expected instantaneous pseudo-regret. Hence, derive the expected cumulative pseudo-regret $\mathbb{E}[\mathcal{R}_T]$. How does it grow with $T$, assuming $\epsilon$ remains fixed and the greedy choice remains optimal?
+# > Derive the agent's expected reward per decision and its expected instantaneous pseudo-regret. Hence, derive the expected cumulative pseudo-regret $\mathbb{E}[\mathcal{R}_T]$. How does it grow with $T$, assuming $\epsilon$ remains fixed and the greedy choice remains optimal? (Bonus)
 
 # %% [markdown]
 # ### (c)
