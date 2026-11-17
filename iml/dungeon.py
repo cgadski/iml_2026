@@ -42,9 +42,7 @@ class Dungeon:
 
 		square_ = self.tile_mat[pos_[:, 0], pos_[:, 1], None]
 		pos_ = np.where(square_ == "#", pos, pos_) # Don't move into walls
-
-		if self.hole_reset:
-			pos_ = np.where(np.isin(square_, ["O", "o"]), start_pos, pos_) # Holes teleport to start
+		
 		return pos_
 
 
@@ -53,7 +51,7 @@ class Dungeon:
 		transitions = np.zeros((4, self.n_states, self.n_states))
 		final_transitions = np.zeros_like(transitions)
 
-        # Deterministic transitions
+		# Deterministic transitions
 		for action in range(4):
 			for y in range(self.h):
 				for x in range(self.w):
@@ -73,6 +71,17 @@ class Dungeon:
 					final_transitions[action, state] += (self.p_slippery * transitions[slipped_action, state])
 				else:
 					final_transitions[action, state] = transitions[action, state]
+
+		# reset if hole/dragon
+		if self.hole_reset:
+			hole_indices = np.concatenate([self.tile_indices("o"), self.tile_indices("O")])
+			if len(hole_indices) > 0:
+				for action in range(4):
+					for h_state in hole_indices:
+						# Clear any existing transitions from this hole state
+						final_transitions[action, h_state] = 0.0
+						# Force all actions from a hole state to transition 100% to the start state
+						final_transitions[action, h_state, self.start] = 1.0
 
 		return final_transitions
 

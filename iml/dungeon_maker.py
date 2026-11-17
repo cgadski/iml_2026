@@ -7,8 +7,17 @@ from iml.dungeon import Dungeon
 def make_treasure_room(**kwargs):
         return Dungeon("""####
 #s.#
-#.e#
+#oe#
 ####""", **kwargs)#, p_slippery=p_slippery)
+
+def make_big_treasure_room(p_slippery=0.0):
+    return Dungeon("""
+#######
+#s....#
+#.....#
+#....e#
+#######
+""", p_slippery=p_slippery)
 
 def make_underground_maze(p_slippery=0.0):
     return Dungeon("""
