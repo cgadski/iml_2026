@@ -39,7 +39,7 @@ class DungeonAgent:
 		self.visited.fill(0)
 		self.visited[dungeon.start] += 1
 
-		for step in range(nstep - 1):
+		for step in range(nstep):
 			state = states[-1]
 			
 			if dungeon.tiles[state] == 'e':
